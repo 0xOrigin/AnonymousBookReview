@@ -77,7 +77,7 @@ public class BookServiceImpl implements BookService {
             Double averageRating = null;
             if (agg != null) {
                 totalReviews = agg.totalReviews() == null ? 0L : agg.totalReviews();
-                averageRating = agg.averageRating();
+                averageRating = Double.parseDouble(String.format("%.2f", agg.averageRating()));
             }
             response = response.withRatingFields(averageRating, totalReviews);
             return response;
@@ -99,7 +99,7 @@ public class BookServiceImpl implements BookService {
         Double averageRating = null;
         if (agg != null) {
             totalReviews = agg.totalReviews() == null ? 0L : agg.totalReviews();
-            averageRating = agg.averageRating();
+            averageRating = Double.parseDouble(String.format("%.2f", agg.averageRating()));
         }
         response = response.withRatingFields(averageRating, totalReviews);
 
