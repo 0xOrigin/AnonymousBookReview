@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_books_table
+      author: system
+      changes:
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: isbn
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: published_date
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: number_of_pages
+                  type: integer
+              - column:
+                  name: author_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    references: authors(id)
+                    foreignKeyName: fk_books_author_id
+              - column:
+                  name: created_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: true
+        - createIndex:
+            indexName: idx_book_id_unq
+            tableName: books
+            unique: true
+            columns:
+              - column:
+                  name: id
+        - createIndex:
+            indexName: idx_book_isbn_unq
+            tableName: books
+            unique: true
+            columns:
+              - column:
+                  name: isbn
+        - createIndex:
+            indexName: idx_book_createdat
+            tableName: books
+            columns:
+              - column:
+                  name: created_at
+        - createIndex:
+            indexName: idx_book_number_of_pages
+            tableName: books
+            columns:
+              - column:
+                  name: number_of_pages
+        - createIndex:
+            indexName: idx_book_author_id
+            tableName: books
+            columns:
+              - column:
+                  name: author_id
+        - addUniqueConstraint:
+            tableName: books
+            columnNames: isbn
+            constraintName: uc_book_isbn
