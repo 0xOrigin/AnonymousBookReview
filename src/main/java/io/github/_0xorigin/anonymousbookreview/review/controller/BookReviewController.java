@@ -31,14 +31,14 @@ public interface BookReviewController {
         @Valid @RequestBody(required = false) ListAPIRequest listAPIRequest
     );
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", headers = "API-VERSION=1")
     @Operation(summary = "Get review by ID")
     ResponseEntity<ApiResponse<BookReviewResponse>> getReviewById(
         @Parameter(description = "Book ID") @PathVariable UUID bookId,
         @Parameter(description = "Review ID") @PathVariable UUID id
     );
 
-    @PostMapping
+    @PostMapping(headers = "API-VERSION=1")
     @Operation(summary = "Create an anonymous review for a book")
     ResponseEntity<ApiResponse<BookReviewResponse>> createReview(
         @Parameter(description = "Book ID") @PathVariable UUID bookId,
